@@ -1,1 +1,128 @@
-{% extends 'layout/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogify - Your Modern Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <h1 class="text-2xl font-bold text-indigo-600">Blogify</h1>
+            <nav class="space-x-6">
+                <a href="#" class="text-gray-700 hover:text-indigo-600 transition">Home</a>
+                <a href="#features" class="text-gray-700 hover:text-indigo-600 transition">Features</a>
+                <a href="#posts" class="text-gray-700 hover:text-indigo-600 transition">Blog</a>
+                <a href="#contact" class="text-gray-700 hover:text-indigo-600 transition">Contact</a>
+            </nav>
+            <a href="#signup"
+                class="ml-4 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 transition">Sign Up</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-indigo-600 text-white">
+        <div class="container mx-auto flex flex-col md:flex-row items-center py-20 px-6">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-4xl font-bold mb-4">Share Your Stories with the World</h2>
+                <p class="mb-6 text-gray-200">Blogify helps you create, manage, and share your thoughts effortlessly
+                    with a modern, responsive blogging platform.</p>
+                <a href="#signup"
+                    class="bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition">Get
+                    Started</a>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Blog illustration"
+                    class="rounded-lg shadow-lg">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-bold mb-12">Features</h3>
+            <div class="grid md:grid-cols-3 gap-10 px-6">
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-xl font-semibold mb-4">Easy to Use</h4>
+                    <p>Intuitive interface lets you focus on writing, not managing.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-xl font-semibold mb-4">Responsive Design</h4>
+                    <p>Your blog will look great on any device, desktop or mobile.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+                    <h4 class="text-xl font-semibold mb-4">Analytics</h4>
+                    <p>Track your readers and engagement to grow your audience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Posts Section -->
+    <section id="posts" class="bg-gray-100 py-20">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-bold mb-12">Latest Posts</h3>
+            <div class="grid md:grid-cols-3 gap-8 px-6">
+                <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1581091215360-4c75a47f347b" alt="Post 1"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">Understanding Tailwind CSS</h4>
+                        <p class="text-gray-600 mb-4">Learn how Tailwind CSS can speed up your front-end development.
+                        </p>
+                        <a href="#" class="text-indigo-600 font-semibold hover:underline">Read More →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61" alt="Post 2"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">10 Tips for Blogging</h4>
+                        <p class="text-gray-600 mb-4">Boost your blog’s traffic and engagement with these proven
+                            strategies.</p>
+                        <a href="#" class="text-indigo-600 font-semibold hover:underline">Read More →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2" alt="Post 3"
+                        class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">Writing Engaging Content</h4>
+                        <p class="text-gray-600 mb-4">Create content that keeps readers coming back for more.</p>
+                        <a href="#" class="text-indigo-600 font-semibold hover:underline">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="signup" class="py-20 text-center bg-indigo-600 text-white">
+        <h3 class="text-3xl font-bold mb-6">Start Your Blogging Journey Today</h3>
+        <p class="mb-6">Sign up and join thousands of writers sharing their stories.</p>
+        <a href="#"
+            class="bg-white text-indigo-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition">Sign Up
+            Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-200 py-10">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Blogify. All rights reserved.</p>
+            <div class="flex justify-center mt-4 space-x-4">
+                <a href="#" class="hover:text-white transition">Twitter</a>
+                <a href="#" class="hover:text-white transition">Facebook</a>
+                <a href="#" class="hover:text-white transition">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
