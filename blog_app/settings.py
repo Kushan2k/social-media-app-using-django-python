@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'blog_app',
     'auth_app',
+    'home_app',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH=False
+AUTH_USER_MODEL = 'auth_app.CustomUser'
