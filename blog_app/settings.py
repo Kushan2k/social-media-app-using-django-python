@@ -127,3 +127,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH=False
 AUTH_USER_MODEL = 'auth_app.CustomUser'
+EMAIL_HOST_USER="admin@blog.com"
