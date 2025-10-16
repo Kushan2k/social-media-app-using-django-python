@@ -1,0 +1,61 @@
+# Byte-compiled / Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+*.db
+
+# Django migrations
+*/migrations/*
+!*/migrations/__init__.py
+
+# Environment / Virtualenv
+.env
+.env.local
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# IDEs / Editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Static files / media
+staticfiles/
+media/
+# If you want to track media in git, remove the line above
+
+# Pytest / test cache
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+*.pot
+
+# Celery beat schedule
+celerybeat-schedule
+
+# Backup files
+*.bak
+*.swp
