@@ -59,6 +59,10 @@ class CustomUserCreationForm(UserCreationForm):
                 "class":"w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
                 "id":"dob",
                 "type":"date"
-            })
-
-            }
+            }),
+            "username":forms.TextInput(attrs={
+                "class":"w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+                "placeholder":"Username",
+                "id":"username"
+            }),
+        }
