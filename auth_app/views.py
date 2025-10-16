@@ -15,7 +15,7 @@ class SignIn(View):
 
         form=CustomUserCreationForm()
 
-        return render(req,'auth_app/sign-up.html',{'form':form})
+        return render(req,'sign-up.html',{'form':form})
     
     def post(self,req:HttpRequest):
 
