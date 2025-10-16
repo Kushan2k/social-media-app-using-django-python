@@ -41,4 +41,4 @@ A simple blog application built with Django that supports creating, editing and 
 
 Notes: For production, configure allowed hosts, a production-ready database, and a WSGI/ASGI server.
 
-## In DEvelopment
+## Currently in DEvelopment
