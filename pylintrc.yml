@@ -1,0 +1,38 @@
+master:
+  ignore:
+    - migrations
+    - __pycache__
+    - manage.py
+  ignore-patterns:
+    - 'test_.*\.py'
+  load-plugins:
+    - pylint_django
+  max-line-length: 120
+
+
+messages-control:
+  disable:
+    - missing-docstring
+    - too-few-public-methods
+    - no-member
+    - too-many-arguments
+    - invalid-name
+
+typecheck:
+  ignored-classes:
+    - QuerySet
+    - Manager
+    - Model
+    - RelatedManager
+  ignored-modules:
+    - django
+  generated-members:
+    - objects
+    - DoesNotExist
+    - id
+    - pk
+    - get
+    - filter
+    - all
+    - create
+    - save
