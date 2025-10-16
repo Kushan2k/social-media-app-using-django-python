@@ -9,9 +9,11 @@ class CustomUser(BaseModel,AbstractUser,PermissionsMixin):
     dob=models.DateField(blank=False,null=False)
     email=models.EmailField(unique=True,blank=False,null=False)
     is_active=models.BooleanField(default=False)
+    verification_code=models.CharField(max_length=6,blank=True,null=True)
+    verification_code_created_at=models.DateTimeField(blank=True,null=True)
 
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=['username','first_name','last_name','bio','dob']
+    REQUIRED_FIELDS=['username','first_name','last_name','bio','dob','password1','password2']
 
     objects=CustomUserManager()
 
