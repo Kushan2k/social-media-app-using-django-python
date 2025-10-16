@@ -7,9 +7,18 @@
 {% include 'components/navbar.html' %}
 
 <div class="h-auto">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <!-- Container -->
     <div class="mx-auto">
         <div class="flex justify-center px-6 py-12">
+
             <!-- Row -->
             <div class="w-full flex">
                 <!-- Col -->
@@ -78,6 +87,15 @@
                             {{ form.dob }}
                             {% if form.dob.errors %}
                             <p class="text-red-500 text-xs italic">{{ form.dob.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-4">
+                            <label class="block mb-2 text-sm font-bold text-gray-700 " for="email">
+                                Create a username
+                            </label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                            <p class="text-red-500 text-xs italic">{{ form.username.errors }}</p>
                             {% endif %}
                         </div>
                         <div class="mb-4">
