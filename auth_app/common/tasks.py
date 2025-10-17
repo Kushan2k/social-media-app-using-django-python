@@ -6,17 +6,17 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import  render_to_string
 from django.conf import settings
 
-async def send_mail_with_template(email,token):
+def send_mail_with_template(ctx,subject,email,template_name):
     '''
     sends the mail with the provided template to the provided user
     '''
-    subject="Activate your account"
-    from_email=settings.EMAIL_HOST_USER
-    to=email
+    try:
+        from_email=settings.DEFAULT_EMAIL_USER
+        to=email
+        html_content=render_to_string(template_name,ctx)
 
-    text_content=render_to_string('email/activation.txt',{'token':token})
-    html_content=render_to_string('email/activation.html',{'token':token})
-
-    msg=EmailMultiAlternatives(subject,text_content,from_email,[to])
-    msg.attach_alternative(html_content,"text/html")
-    msg.send()
+        msg=EmailMultiAlternatives(subject,html_content,from_email,[to])
+        msg.attach_alternative(html_content,"text/html")
+        msg.send()
+    except Exception as e:
+        print(f"Error sending email to {email}: {e}")
