@@ -4,14 +4,15 @@ from django.utils.timezone import now
 from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.views import View
-from .forms import CustomUserCreationForm,CustomLoginForm
+from .forms import CustomUserCreationForm,CustomLoginForm,CustomPasswordChangeForm
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.utils.crypto import get_random_string
 from .models import CustomUser
 from .common.tasks import send_mail_with_template
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView,PasswordChangeView
 from .mixins import RedirectAuthenticatedUserMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 User=get_user_model()
 
@@ -91,6 +92,7 @@ class SignIn(RedirectAuthenticatedUserMixin,LoginView):
 
 class VerifyAccount(View):
 
+
     def get(self,req:HttpRequest):
 
         return render(req,'verify-account.html')
@@ -135,3 +137,10 @@ class VerifyAccount(View):
         )
 
         return redirect('sign-in')
+    
+
+class CustomPasswordChangeView(LoginRequiredMixin,PasswordChangeView):
+    template_name = 'password-change.html'
+    success_url = '/sign-in'
+    form_class=CustomPasswordChangeForm
+    
