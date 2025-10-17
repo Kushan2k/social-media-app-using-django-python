@@ -143,4 +143,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH=False
 AUTH_USER_MODEL = 'auth_app.CustomUser'
-EMAIL_HOST_USER="admin@blog.com"
+DEFAULT_EMAIL_USER="admin@blog.com"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_HOST = env('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = env('EMAIL_PORT', default=587)
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
