@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,PasswordChangeForm
 from .models import CustomUser
 
 
@@ -101,4 +101,35 @@ class CustomLoginForm(AuthenticationForm):
             )
         
 
+class CustomPasswordChangeForm(PasswordChangeForm):
+
+    old_password = forms.CharField(
+        label="Old Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            "class": "w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+            "placeholder": "Old Password",
+            "id": "old_password",
+        }),
+    )
+
+    new_password1 = forms.CharField(
+        label="New Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            "class": "w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+            "placeholder": "New Password",
+            "id": "new_password1",
+        }),
+    )
+
+    new_password2 = forms.CharField(
+        label="Confirm New Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            "class": "w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+            "placeholder": "Confirm New Password",
+            "id": "new_password2",
+        }),
+    )
         
