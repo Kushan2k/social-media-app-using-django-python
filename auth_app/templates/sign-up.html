@@ -1,5 +1,6 @@
 {% extends 'layout/base.html' %}
 
+{% block title %}<title>Sign Up - Bloggy</title>{% endblock %}
 
 {% block content %}
 <!-- source: https://gist.github.com/nraloux/bce10c4148380061781b928cdab9b193 -->
@@ -7,9 +8,26 @@
 {% include 'components/navbar.html' %}
 
 <div class="h-auto">
+    {% if messages %}
+    {% for message in messages %}
+    {% if 'success' in message.tags %}
+    <div class="bg-green-100 msgs border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
+        <p class="text-lg font-semibold">Register Successfull!</p>
+        <p>{{ message }}</p>
+    </div>
+    {% elif 'error' in message.tags %}
+    <div class="bg-red-100 msgs border-l-4 m-5 border-red-500 text-red-700 p-4 rounded-lg">
+        <p class="text-lg font-semibold">Register Failed!</p>
+        <p>{{ message }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
     <!-- Container -->
     <div class="mx-auto">
         <div class="flex justify-center px-6 py-12">
+
             <!-- Row -->
             <div class="w-full flex">
                 <!-- Col -->
@@ -82,6 +100,15 @@
                         </div>
                         <div class="mb-4">
                             <label class="block mb-2 text-sm font-bold text-gray-700 " for="email">
+                                Create a username
+                            </label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                            <p class="text-red-500 text-xs italic">{{ form.username.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-4">
+                            <label class="block mb-2 text-sm font-bold text-gray-700 " for="email">
                                 {{ form.bio.label}}
                             </label>
                             {{ form.bio }}
@@ -104,7 +131,7 @@
                         </div>
                         <div class="text-center">
                             <a class="inline-block text-sm text-blue-500  align-baseline hover:text-blue-800"
-                                href="./index.html">
+                                href="{% url 'sign-in' %}">
                                 Already have an account? Login!
                             </a>
                         </div>

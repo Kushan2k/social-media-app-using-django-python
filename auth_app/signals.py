@@ -1,7 +1,8 @@
-from django.db.models.signals import post_save,pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.conf import settings
 from django.contrib.auth import get_user_model
+from .common.tasks import send_mail_with_template
+from django.utils.timezone import now
 
 
 
@@ -10,4 +11,13 @@ def create_user_profile(sender,instance,created,**kwargs):
     if created and instance.email:
         print(f'User created: {instance.username}')
 
-        #TODO: send the email verification link to the user
+        context = {
+            "user": instance,
+            "username": getattr(instance, "username", ""),
+            "code": instance.verification_code,
+            "verification_url": "",
+            "expires_in_minutes": 15,
+            "year": now().year,
+        }
+
+        send_mail_with_template(context,"Verify your email",instance.email, "emails/register_email.html")

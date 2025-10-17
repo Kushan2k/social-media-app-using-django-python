@@ -1,10 +1,11 @@
+from datetime import timedelta
+from time import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .manager import CustomUserManager
 from .common.models import BaseModel
-from django.contrib.auth.models import PermissionsMixin
 
-class CustomUser(BaseModel,AbstractUser,PermissionsMixin):
+class CustomUser(BaseModel,AbstractUser):
     bio=models.TextField(blank=False,null=False)
     dob=models.DateField(blank=False,null=False)
     email=models.EmailField(unique=True,blank=False,null=False)
@@ -13,9 +14,14 @@ class CustomUser(BaseModel,AbstractUser,PermissionsMixin):
     verification_code_created_at=models.DateTimeField(blank=True,null=True)
 
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=['username','first_name','last_name','bio','dob','password1','password2']
+    REQUIRED_FIELDS=['username','first_name','last_name','bio','dob']
 
     objects=CustomUserManager()
+
+    def is_verification_code_expired(self):
+        if not self.verification_code_created_at:
+            return False
+        return timezone.now() > self.verification_code_created_at + timedelta(minutes=15)
 
 
     
