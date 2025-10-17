@@ -26,30 +26,29 @@
 
 
     <!-- Container -->
-    <div class="mx-auto">
-        <div class="flex justify-center px-6 py-12">
+    <div class="mx-auto min-h-screen">
+        <div class="flex justify-center items-center px-6 py-12">
 
             <!-- Row -->
-            <div class="w-full flex">
-                <!-- Col -->
-                <div class="w-full h-auto bg-gray-400  hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
+            <div class="w-full flex justify-center ">
+                <!-- Col
+                <div class="w-full h-[80vh] bg-gray-400  hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
                     style="background-image: url('https://thegoodmarketer.co.uk/wp-content/uploads/2022/06/social-media-blog.jpg')">
-                </div>
+                </div> -->
 
                 <!-- Col -->
                 <div class="w-full lg:w-5/12 mx-auto bg-white  p-5 rounded-lg lg:rounded-l-none">
-                    <h3 class="py-4 text-2xl text-center text-gray-800 ">Create an Account!</h3>
+                    <h3 class="py-4 text-2xl text-center text-gray-800 ">Verify Your Account!</h3>
                     <form class="px-8 py-5 mb-4 bg-white  rounded" action="{% url 'verify-account' %}" method="post">
                         {% csrf_token %}
 
                         <div class="mb-4">
                             <label class="block mb-2 text-sm font-bold text-gray-700 " for="email">
-                                {{ form.bio.label}}
+                                Verification Code
                             </label>
-                            {{ form.bio }}
-                            {% if form.bio.errors %}
-                            <p class="text-red-500 text-xs italic">{{ form.bio.errors }}</p>
-                            {% endif %}
+                            <input type="text"
+                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                placeholder="Verification Code" required />
                         </div>
                         <div class="mb-6 text-center">
                             <button
