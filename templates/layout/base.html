@@ -20,6 +20,24 @@
         <p>&copy; 2024 Bloggy. All rights reserved.</p>
     </footer>
 
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            setTimeout(() => {
+                clear_msgs()
+
+            }, 5000);
+        })
+
+        function clear_msgs() {
+
+            document.querySelectorAll('.msgs')?.forEach(ele => {
+                ele.remove()
+            })
+        }
+    </script>
+
 </body>
 
 </html>
