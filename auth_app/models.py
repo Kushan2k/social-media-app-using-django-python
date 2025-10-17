@@ -1,3 +1,5 @@
+from datetime import timedelta
+from time import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .manager import CustomUserManager
@@ -15,6 +17,11 @@ class CustomUser(BaseModel,AbstractUser):
     REQUIRED_FIELDS=['username','first_name','last_name','bio','dob']
 
     objects=CustomUserManager()
+
+    def is_verification_code_expired(self):
+        if not self.verification_code_created_at:
+            return False
+        return timezone.now() > self.verification_code_created_at + timedelta(minutes=15)
 
 
     
