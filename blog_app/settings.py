@@ -153,3 +153,10 @@ EMAIL_USE_TLS = False
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+
+AUTHENTICATION_BACKENDS = [
+    'auth_app.backends.EmailPasswordAuthBackend',  # our custom email backend
+    'django.contrib.auth.backends.ModelBackend',  # fallback
+]
+
+LOGIN_REDIRECT_URL='index'

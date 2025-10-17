@@ -3,7 +3,7 @@ from . import views,forms
 from django.contrib.auth import views as auth_views
     
 urlpatterns = [
-    path('sign-up', views.SignIn.as_view(), name='sign_up'),
+    path('sign-up', views.SignUp.as_view(), name='sign_up'),
     path('sign-in', auth_views.LoginView.as_view(template_name='login.html',), 
          name='sign-in',
          ),

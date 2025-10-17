@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .models import CustomUser
 
 
@@ -36,7 +36,7 @@ class CustomUserCreationForm(UserCreationForm):
                 "placeholder":"First Name",
                 "id":"firstName"
 
-             }),
+            }),
             "last_name":forms.TextInput(attrs={
                 "class":"w-full px-3 py-2 text-sm leading-tight text-gray-700  border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
                 "placeholder":"Last Name",
@@ -66,3 +66,39 @@ class CustomUserCreationForm(UserCreationForm):
                 "id":"username"
             }),
         }
+
+
+
+class CustomLoginForm(AuthenticationForm):
+
+
+    username = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            "class": "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+            "placeholder": "Email",
+            "id": "email",
+            "type": "email"
+        }),
+        label="Email"
+    )
+
+    password = forms.CharField(
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            "class": "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+            "placeholder": "*****",
+            "id": "password",
+        }),
+    )
+
+    def confirm_login_allowed(self, user):
+        
+        if not user.is_active:
+            raise forms.ValidationError(
+                "This account is inactive. Please verify your account.",
+                code='inactive',
+            )
+        
+
+        
