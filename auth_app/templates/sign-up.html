@@ -8,11 +8,19 @@
 
 <div class="h-auto">
     {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
+    {% for message in messages %}
+    {% if 'success' in message.tags %}
+    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg">
+        <p class="text-lg font-semibold">Register Successfull!</p>
+        <p>{{ message }}</p>
+    </div>
+    {% elif 'error' in message.tags %}
+    <div class="bg-red-100 border-l-4 m-5 border-red-500 text-red-700 p-4 rounded-lg">
+        <p class="text-lg font-semibold">Register Failed!</p>
+        <p>{{ message }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
     {% endif %}
 
     <!-- Container -->

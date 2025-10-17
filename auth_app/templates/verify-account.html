@@ -1,0 +1,68 @@
+{% extends 'layout/base.html' %}
+
+
+{% block content %}
+<!-- source: https://gist.github.com/nraloux/bce10c4148380061781b928cdab9b193 -->
+<!-- I have added support for dark mode and improved UI -->
+{% include 'components/navbar.html' %}
+
+<div class="h-auto">
+    {% if messages %}
+    {% for message in messages %}
+    {% if 'success' in message.tags %}
+    <div class="bg-green-100 border-l-4 m-5 border-green-500 text-green-700 p-4 rounded-lg">
+        <p class="text-lg font-semibold">Register Successfull!</p>
+        <p>{{ message }}</p>
+    </div>
+    {% elif 'error' in message.tags %}
+    <div class="bg-red-100 border-l-4 m-5 border-red-500 text-red-700 p-4 rounded-lg">
+        <p class="text-lg font-semibold">Register Failed!</p>
+        <p>{{ message }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+
+    <!-- Container -->
+    <div class="mx-auto">
+        <div class="flex justify-center px-6 py-12">
+
+            <!-- Row -->
+            <div class="w-full flex">
+                <!-- Col -->
+                <div class="w-full h-auto bg-gray-400  hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
+                    style="background-image: url('https://thegoodmarketer.co.uk/wp-content/uploads/2022/06/social-media-blog.jpg')">
+                </div>
+
+                <!-- Col -->
+                <div class="w-full lg:w-5/12 mx-auto bg-white  p-5 rounded-lg lg:rounded-l-none">
+                    <h3 class="py-4 text-2xl text-center text-gray-800 ">Create an Account!</h3>
+                    <form class="px-8 py-5 mb-4 bg-white  rounded" action="{% url 'verify-account' %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-4">
+                            <label class="block mb-2 text-sm font-bold text-gray-700 " for="email">
+                                {{ form.bio.label}}
+                            </label>
+                            {{ form.bio }}
+                            {% if form.bio.errors %}
+                            <p class="text-red-500 text-xs italic">{{ form.bio.errors }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-6 text-center">
+                            <button
+                                class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                                type="submit">
+                                Verify Account
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
