@@ -8,6 +8,13 @@ WORKDIR /app
 # 4. Install dependencies
 COPY requirments.txt /app/
 RUN pip install --upgrade pip
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    default-libmysqlclient-dev \
+    libssl-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+    
 RUN pip install -r requirments.txt
 
 # 5. Copy project
