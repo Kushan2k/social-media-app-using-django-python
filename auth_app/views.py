@@ -4,12 +4,14 @@ from django.utils.timezone import now
 from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.views import View
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm,CustomLoginForm
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.utils.crypto import get_random_string
 from .models import CustomUser
 from .common.tasks import send_mail_with_template
+from django.contrib.auth.views import LoginView
+from .mixins import RedirectAuthenticatedUserMixin
 
 User=get_user_model()
 
@@ -17,9 +19,11 @@ def index(req:HttpRequest):
     return render(req,'index.html')
 
 # Create your views here.
-class SignIn(View):
+class SignUp(RedirectAuthenticatedUserMixin,View):
 
     def get(self,req:HttpRequest):
+
+        
 
         form=CustomUserCreationForm()
 
@@ -72,7 +76,19 @@ class SignIn(View):
             
             messages.error(req,"Please correct the errors below.")
             return render(req,'sign-up.html',{'form':form})
-        
+
+
+
+class SignIn(RedirectAuthenticatedUserMixin,LoginView):
+
+    
+   
+    template_name = 'login.html'
+    redirect_authenticated_user=True
+    authentication_form=CustomLoginForm
+
+
+
 class VerifyAccount(View):
 
     def get(self,req:HttpRequest):
