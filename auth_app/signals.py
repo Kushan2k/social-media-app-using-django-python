@@ -20,4 +20,4 @@ def create_user_profile(sender,instance,created,**kwargs):
             "year": now().year,
         }
 
-        send_mail_with_template(context,"Verify your email",instance.email, "email/register_email.html")
+        send_mail_with_template(context,"Verify your email",instance.email, "emails/register_email.html")
