@@ -2,12 +2,14 @@ import string
 from django.utils.timezone import now
 
 from django.shortcuts import render,redirect
-from django.http import HttpRequest,HttpResponse,HttpResponseBadRequest
+from django.http import HttpRequest
 from django.views import View
 from .forms import CustomUserCreationForm
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.utils.crypto import get_random_string
+from .models import CustomUser
+from .common.tasks import send_mail_with_template
 
 User=get_user_model()
 
@@ -59,15 +61,11 @@ class SignIn(View):
             user.is_active=False
             verification_code=get_random_string(length=6,allowed_chars=string.ascii_letters+string.digits)
             user.verification_code=verification_code
+            print(verification_code)
             user.verification_code_created_at=user.created_at
             
 
             user.save()
-            # from .common.tasks import send_mail_with_template
-            # import asyncio
-            # loop=asyncio.new_event_loop()
-            # asyncio.set_event_loop(loop)
-            # loop.run_until_complete(send_mail_with_template(user.email,user.activation_token))
             messages.success(req,"Account created successfully,Please check your email to verify your account!")
             return redirect('verify-account')
         else:
@@ -83,9 +81,41 @@ class VerifyAccount(View):
     
     def post(self,req:HttpRequest):
 
-        code=req.POST['code']
+        code=req.POST.get('code',None)
 
         if not code or code=='':
-            return HttpResponseBadRequest("Verification code must be provided!")
+            messages.error(req,"Verification code in required!")
+            return redirect('verify-account')
         
-        return HttpResponse("code sented")
+        user:CustomUser=User.objects.filter(verification_code=code).first()
+
+        if not user:
+            messages.error(req,"User not found!")
+            return redirect('verify-account')
+
+        if user.is_verification_code_expired():
+            messages.error(req,"Your Verification Code Has been expired!")
+            return redirect('verify-account')
+
+        user.is_active=True
+        user.verification_code=None
+        user.verification_code_created_at=None
+
+        user.save()
+
+        messages.success(req,"You Account has been verified!")
+
+        context={
+            "user": user,
+            "username": getattr(user, "username", ""),
+            
+        }
+
+        send_mail_with_template(
+            context,
+            "Account Verification",
+            user.email,
+            'emails/verification-success.html'
+        )
+
+        return redirect('sign-in')
