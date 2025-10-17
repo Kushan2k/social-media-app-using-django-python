@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.utils.crypto import get_random_string
 from .models import CustomUser
 from .common.tasks import send_mail_with_template
-from django.contrib.auth.views import LoginView,PasswordChangeView
+from django.contrib.auth.views import LoginView,PasswordChangeView,PasswordChangeDoneView
 from .mixins import RedirectAuthenticatedUserMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -141,6 +141,13 @@ class VerifyAccount(View):
 
 class CustomPasswordChangeView(LoginRequiredMixin,PasswordChangeView):
     template_name = 'password-change.html'
-    success_url = '/sign-in'
+    success_url ='password-change/done'
     form_class=CustomPasswordChangeForm
+
+
+class CustomPasswordChangeDoneView(PasswordChangeDoneView):
+    template_name='password-change-done.html'
+
+
+
     
