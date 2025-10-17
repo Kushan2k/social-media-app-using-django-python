@@ -2,7 +2,7 @@ import string
 from django.utils.timezone import now
 
 from django.shortcuts import render,redirect
-from django.http import HttpRequest,HttpResponse
+from django.http import HttpRequest,HttpResponse,HttpResponseBadRequest
 from django.views import View
 from .forms import CustomUserCreationForm
 from django.contrib.auth import get_user_model
@@ -45,6 +45,7 @@ class SignIn(View):
                     if time_diff.total_seconds()<(10*60):
                         messages.warning(req,"A verification email has already been sent to your email,Please check your inbox!")
                         return redirect('sign-up')
+                    
                 code=get_random_string(length=6,allowed_chars=string.ascii_letters+string.digits)
                 user.verification_code=code
                 user.verification_code_created_at=now()
@@ -68,8 +69,23 @@ class SignIn(View):
             # asyncio.set_event_loop(loop)
             # loop.run_until_complete(send_mail_with_template(user.email,user.activation_token))
             messages.success(req,"Account created successfully,Please check your email to verify your account!")
-            return redirect('index')
+            return redirect('verify-account')
         else:
             
             messages.error(req,"Please correct the errors below.")
             return render(req,'sign-up.html',{'form':form})
+        
+class VerifyAccount(View):
+
+    def get(self,req:HttpRequest):
+
+        return render(req,'verify-account.html')
+    
+    def post(self,req:HttpRequest):
+
+        code=req.POST['code']
+
+        if not code or code=='':
+            return HttpResponseBadRequest("Verification code must be provided!")
+        
+        return HttpResponse("code sented")
