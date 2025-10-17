@@ -4,13 +4,13 @@ from django.utils.timezone import now
 from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.views import View
-from .forms import CustomUserCreationForm,CustomLoginForm,CustomPasswordChangeForm
+from .forms import CustomUserCreationForm,CustomLoginForm,CustomPasswordChangeForm,CustomPasswordResetForm
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.utils.crypto import get_random_string
 from .models import CustomUser
 from .common.tasks import send_mail_with_template
-from django.contrib.auth.views import LoginView,PasswordChangeView,PasswordChangeDoneView
+from django.contrib.auth.views import LoginView,PasswordChangeView,PasswordChangeDoneView,PasswordResetView
 from .mixins import RedirectAuthenticatedUserMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -82,8 +82,6 @@ class SignUp(RedirectAuthenticatedUserMixin,View):
 
 class SignIn(RedirectAuthenticatedUserMixin,LoginView):
 
-    
-   
     template_name = 'login.html'
     redirect_authenticated_user=True
     authentication_form=CustomLoginForm
@@ -150,4 +148,6 @@ class CustomPasswordChangeDoneView(PasswordChangeDoneView):
 
 
 
-    
+class CustomPasswordResetView(PasswordResetView):
+    template_name="password-reset.html"
+    form_class=CustomPasswordResetForm

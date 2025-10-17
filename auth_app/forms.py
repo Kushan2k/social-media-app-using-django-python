@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,PasswordChangeForm,PasswordResetForm
 from .models import CustomUser
 
 
@@ -133,3 +133,17 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         }),
     )
         
+
+class CustomPasswordResetForm(PasswordResetForm):
+
+    email=forms.EmailField(
+        label="Account Email",
+        strip=False,
+        required=True,
+        widget=forms.EmailInput(attrs={
+            "class": "w-full px-3 py-2 mb-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+            "placeholder": "Account Email",
+            "id": "account_email",
+        }),
+    )
+    

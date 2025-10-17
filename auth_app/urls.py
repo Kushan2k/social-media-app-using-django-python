@@ -10,7 +10,6 @@ urlpatterns = [
 
     path("change-password",view=views.CustomPasswordChangeView.as_view(),name='change-password'),
     path('password-change/done',view=views.CustomPasswordChangeDoneView.as_view(),name='password-change-done'),
-    path('password-reset',auth_views.PasswordResetView.as_view(
-        template_name='password-reset.html',),name='password-reset'),
+    path('password-reset',view=views.CustomPasswordResetView.as_view(),name='password-reset'),
 
 ]
